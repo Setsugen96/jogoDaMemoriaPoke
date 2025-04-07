@@ -1,12 +1,16 @@
 const grid = document.getElementById('grid');
+const spanPlayer = document.getElementById('player');
+const timer = document.getElementById('timer');
+const btn_reiniciar = document.getElementById('button__reiniciar');
 
 const imageArrays = [
     ['arcanine', 'charizzard', 'flygon', 'furret', 'greninja', 'ludicolo', 'mewtwo', 'mrmine', 'riolu', 'snorlax', 'totodile', 'zoroark'],
     ['banette', 'blastoise', 'chandelure', 'decidueye', 'espeon', 'gengar', 'larvitar', 'lucario', 'minun', 'plusle', 'togepi', 'umbreon'],
-    
-  ];
+    ['farfetch', 'garchomp', 'latias', 'latios', 'luxray', 'mawile', 'milotic', 'pidgeot', 'pikachu', 'rattata', 'rayquaza', 'salamance']
+];
 
-  const chooseRandomArray = () => {
+
+const chooseRandomArray = () => {
     const randomIndex = Math.floor(Math.random() * imageArrays.length);
     return imageArrays[randomIndex];
   };
@@ -24,6 +28,7 @@ const checkEndGame = () =>{
     const disabledCards = document.querySelectorAll('.disabled-card');
 
     if(disabledCards.length == 24) {
+        clearInterval(this.loop);
         alert('Fim de Jogo');
     }
 }
@@ -101,5 +106,35 @@ const loadGame = () => {
     });
 }
 
-loadGame();
+const startTimer = () =>{
+    let seconds = 0;
+    this.loop = setInterval(() => {
+        seconds++;
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const formattedSeconds = secs.toString().padStart(2, '0');
+
+        timer.innerHTML = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }, 1000);
+}
+
+window.onload = () => {
+    const playerName = localStorage.getItem('player');
+    spanPlayer.innerHTML = playerName;
+    startTimer();
+    loadGame();
+
+    btn_reiniciar.addEventListener('click', ()=>{
+        location.reload();
+    })
+}
+
+
+
+
+
 
