@@ -6,6 +6,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/modalRanking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <!-- Script -->
     <script defer src="./js/login.js"></script>
 
@@ -20,7 +23,32 @@
         </div>
 
         <input type="text" placeholder="Name" id="login-input" class="login__input">
-        <button type="submit" id="login-button" class="login__button" disabled>Play</button>
+        <div class="buttons">
+            <button type="submit" id="login-button" class="login__button" disabled>Play</button>
+            <button type="button" id="ranking-button" class="ranking__button" >Ranking</button>
+            <button type="button" id="clearRanking-button" class="clearRanking__button" >Clear Ranking</button>
+        </div>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="modal-exit" id="modal-exit">&times;</span>
+                <header class="title">
+                    <h2>Ranking de Jogadores</h2>
+                </header>
+                <table class="ranking-table" id="ranking-table">
+                    <thread>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Nickname</th>
+                            <th>Tempo</th>
+                        </tr>
+                    </thread>
+                    <tbody id="td-body">
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </form>
 </body>

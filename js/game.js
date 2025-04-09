@@ -2,6 +2,7 @@ const grid = document.getElementById('grid');
 const spanPlayer = document.getElementById('player');
 const timer = document.getElementById('timer');
 const btn_reiniciar = document.getElementById('button__reiniciar');
+const btn_voltar = document.getElementById('button__voltar');
 
 const imageArrays = [
     ['arcanine', 'charizzard', 'flygon', 'furret', 'greninja', 'ludicolo', 'mewtwo', 'mrmine', 'riolu', 'snorlax', 'totodile', 'zoroark'],
@@ -24,12 +25,44 @@ const createElement = (tag, className) =>{
 let firstCard = '';
 let secondCard = '';
 
+const getLocalStorage = () =>{
+    let db_players = JSON.parse(localStorage.getItem('db_players'));
+    if(!db_players) {
+        db_players = [];
+    }
+    return db_players;
+}
+
+const setLocalStorage = (db_players) => localStorage.setItem("db_players", JSON.stringify(db_players));
+
+const criarPlayer = (player) =>{
+    const db_players = getLocalStorage();
+    const playerIndex = db_players.findIndex(p => p.nome === player.nome);
+
+    if(playerIndex !== -1) {
+        const existingPlayer = db_players[playerIndex];
+        if(player.timer < existingPlayer.timer) {
+            db_players[playerIndex].timer = player.timer;
+        } 
+    } else {
+        db_players.push(player);
+    }
+    
+    setLocalStorage(db_players);
+}
+
 const checkEndGame = () =>{
     const disabledCards = document.querySelectorAll('.disabled-card');
 
     if(disabledCards.length == 24) {
         clearInterval(this.loop);
         alert('Fim de Jogo');
+        
+        const player = {
+            nome: spanPlayer.innerHTML,
+            timer: timer.innerHTML
+        }
+        criarPlayer(player);
     }
 }
 
@@ -130,6 +163,10 @@ window.onload = () => {
 
     btn_reiniciar.addEventListener('click', ()=>{
         location.reload();
+    })
+
+    btn_voltar.addEventListener('click', ()=>{
+        window.location.href = "../index.html";
     })
 }
 
