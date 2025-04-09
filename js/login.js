@@ -58,7 +58,7 @@ const atualizarRanking = () =>{
 }
 
 const limparRanking = () =>{
-    if(confirm("Deseja limpar o raking?")) {
+    if(confirm("Deseja limpar o ranking?")) {
         document.getElementById('td-body').innerHTML = '';
         localStorage.removeItem('db_players');
     }
